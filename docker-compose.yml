@@ -1,0 +1,26 @@
+version: '3'
+services: 
+    web:
+        build:
+            # specify where reference from
+            context: .
+            dockerfile: Dockerfile.dev
+        ports: 
+            - "3000:3000"
+        volumes: 
+            - /app/node_modules
+            - .:/app
+    # if use one service to run tests with sh, run below on a new tab:
+    # docker exec -it {docker ID} npm run test
+
+    # if we add another service to run tests, we 
+    # cannot input
+    tests:
+        build:
+            # specify where reference from
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        command: ["npm", "run", "test"]
